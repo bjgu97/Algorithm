@@ -5,7 +5,7 @@
  *             33333
  *            4444444
  */
-package Doit_01;
+package Doit_01_기본알고리즘;
 
 public class Doit_01_Q17 {
 

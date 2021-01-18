@@ -1,4 +1,4 @@
-package start_1.JO_LC_입력;
+package JO_LC_입력;
 
 import java.util.Scanner;
 

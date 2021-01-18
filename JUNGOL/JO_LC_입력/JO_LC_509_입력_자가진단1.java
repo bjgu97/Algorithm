@@ -1,4 +1,4 @@
-package start_1.JO_LC_입력;
+package JO_LC_입력;
 
 public class JO_LC_509_입력_자가진단1 {
 

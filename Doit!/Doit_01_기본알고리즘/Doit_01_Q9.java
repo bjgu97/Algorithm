@@ -3,7 +3,7 @@
  * static int sumof(int a, int b)
  */
 
-package Doit_01;
+package Doit_01_기본알고리즘;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package start_1.JO_LC_출력;
+package JO_LC_출력;
 
 public class JO_LC_103_출력_형성평가3 {
 

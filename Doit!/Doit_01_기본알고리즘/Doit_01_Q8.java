@@ -3,7 +3,7 @@
  * 가우스의 덧셈이라는 방법을 이용하여 1부터 n까지의 정수 합을 구하는 프로그램을 작성하세요. 
  */
 
-package Doit_01;
+package Doit_01_기본알고리즘;
 
 import java.util.Scanner;
 

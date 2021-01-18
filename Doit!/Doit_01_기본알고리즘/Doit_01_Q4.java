@@ -1,7 +1,7 @@
 /*
  * Q4. 세 값의 대소 관계 13종류의 모든 조합에 대해 중앙값을 구하여 출력하느 프로그램을 작성하세요 .
  */
-package Doit_01;
+package Doit_01_기본알고리즘;
 
 import java.util.Scanner;
 
