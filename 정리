@@ -1,0 +1,33 @@
+1. 실행속도높이기
+	1) BufferedReader
+		헤더: 
+			import java.io.BufferedReader;
+			import java.io.InputStreamReader;
+		선언: 
+			BufferedReader br = 
+				new BufferedReader(new InputStreamReader(System.in));
+		메소드
+			readLine: STring타입 고정이기 때문에 형변환 필요 ->  throws IOException 
+			정수변환방법: Integer.parseInt()
+	2) BufferedWriter
+		헤더:
+			import java.io.BufferedWriter;
+			import java.io.OutputStreamWriter;
+		선언: 	
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		메소드
+			write : 출력값을 버퍼에 저장 (ex) bw.write(st + "\n") 
+			flush : 출력
+			newLine : 줄바꿈
+		주의점
+			출력시 String으로 바꿔서 출력해야함.
+			ex) bw.write(String.valueOf(n));
+			
+	3) StringTokenizer: 한줄에 공백을 구분자로 여러 문자 있는 경우
+	
+	4) StringBuilder
+		메소드
+			append
+			insert
+				delete
+				
