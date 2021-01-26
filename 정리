@@ -9,6 +9,23 @@
 		메소드
 			readLine: STring타입 고정이기 때문에 형변환 필요 ->  throws IOException 
 			정수변환방법: Integer.parseInt()
+		예시
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			int N = Integer.parseInt(br.readLine());
+			
+	3) StringTokenizer: 한줄에 공백을 구분자로 여러 문자 있는 경우
+		헤더
+			import java.util.StringTokenizer;
+		선언
+			StringTokenizer st = new StringTokenizer(br.readLine(), " "); //공백으로 구분
+			int N = Integer.parseInt(st.nextToken());
+			
+		메소드
+			nextToken : 다음 토큰 반환
+			hasMoreTokens : 토큰 남아있는지
+			countTokens : 전체 토큰의 수
+			
+				
 	2) BufferedWriter
 		헤더:
 			import java.io.BufferedWriter;
@@ -23,11 +40,49 @@
 			출력시 String으로 바꿔서 출력해야함.
 			ex) bw.write(String.valueOf(n));
 			
-	3) StringTokenizer: 한줄에 공백을 구분자로 여러 문자 있는 경우
-	
+
+		
 	4) StringBuilder
 		메소드
-			append
+			append: 값 하나씩 추가하기 
 			insert
 				delete
-				
+
+2. QUEUE
+	헤더:
+		import java.util.LinkedList;
+		import java.util.Queue;
+	선언
+		 Queue<Integer> queue = new LinkedList<>();
+	메소드
+		isEmpty: 비어있는지
+		peek: 
+		add: 값 추가 (성공시 true, 공간 없어 실패하면 exceptipon)
+		offer: 값 추가(실패시 false)
+		poll: 첫번쨰값 반환하고 제거, 비어있으면 null
+		remove: 첫번째값 제거
+		clear: 초기화
+		peek: 첫번째값 참조
+	
+3. HashMap
+	선언
+		HashMap<String,String> map2 = new HashMap<>(); //new에서 타입 파라미터 생략가능
+		HashMap<String,String> map3 = new HashMap<>(map1); //map1의 모든 값을 가진 HashMap생성
+		HashMap<String,String> map4 = new HashMap<>(10); //초기 용량(capacity)지정
+		HashMap<String,String> map5 = new HashMap<>(10, 0.7f); //초기 capacity,load factor지정
+		HashMap<String,String> map6 = new HashMap<String,String>(){{ //초기값 지정
+		    put("a","b");
+		}};
+	메서드
+		put(_, _) : 값 추가
+		remove(_) : 값 제거
+		clear: 모든값 제거
+		get(key) : key값의 value
+		
+		for (Entry<Integer, String> entry : map.entrySet()) {
+    		System.out.println("[Key]:" + entry.getKey() + " [Value]:" + entry.getValue());
+		}
+		
+		for(Integer i : map.keySet()){ //저장된 key값 확인
+    		System.out.println("[Key]:" + i + " [Value]:" + map.get(i));
+		}
