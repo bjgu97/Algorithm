@@ -1,4 +1,4 @@
-package 큐덱;
+package Study2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,20 +22,21 @@ public class BAEKJOON_11866_요세푸스문제0 {
 		Queue<Integer> queue = new LinkedList<>();
 		List<Integer> list = new ArrayList<>();
 		
-		//queue 초기화
+		//queue 초기화: 1, 2, 3, ... , N
 		for(int i = 0; i < N; i++) {
 			queue.add(i+1);
 		}
 		
 		int i = 0;
 		//계속 반복
-		while(true) {
-			i++;
-			if(i % K != 0) {
+		
+		while(true) { 
+			i++; // i 하나씩 증가시키면서 
+			if(i % K != 0) { 
 				int a = queue.poll();
 				queue.add(a);
 			}
-			else {
+			else { //K번째 사람
 				int a = queue.poll();
 				list.add(a);
 			}

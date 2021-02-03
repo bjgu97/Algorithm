@@ -7,12 +7,36 @@
 			BufferedReader br = 
 				new BufferedReader(new InputStreamReader(System.in));
 		메소드
-			readLine: STring타입 고정이기 때문에 형변환 필요 ->  throws IOException 
+			readLine: 그 줄 읽기
 			정수변환방법: Integer.parseInt()
 		예시
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			int N = Integer.parseInt(br.readLine());
 			
+		***
+		1. 라인에 숫자가 하나만 있는 경우 ex) 1
+			int N = Integer.parseInt(br.readLine());
+			
+		2. 라인에 숫자가 여러개 있는데 공백으로 구분되어있는 경우 ex) 1 2 3
+			StringTokenizer st = new StringTokenizer(br.readline());
+			for(int i = 0; i < N; ++i) {
+				arr[i] = Integer.parseInt(st.nextToken());
+			}
+			
+		3. 라인에 숫자가 여러개 있는데 연속으로 나오는 경우 ex) 12345 // String으로 받아서 charAt
+			//배열에 담기 (char -> int)
+			String s = br.readLine();
+			int[] arr = new int[s.length()];
+			for(int i = 0; i < s.length; ++i) {
+				arr[i] = s.charAt(i) - '0';
+			}
+
+			// 연속적인 숫자의 경우
+			String s = br.readLine();
+			for(int i = 0; i < s.length; ++i) {
+				System.out.println(s.charAt(i));
+			}
+
 	3) StringTokenizer: 한줄에 공백을 구분자로 여러 문자 있는 경우
 		헤더
 			import java.util.StringTokenizer;
@@ -40,14 +64,18 @@
 			출력시 String으로 바꿔서 출력해야함.
 			ex) bw.write(String.valueOf(n));
 			
-
-		
 	4) StringBuilder
 		메소드
 			append: 값 하나씩 추가하기 
 			insert
-				delete
+			delete
+			setLength : 길이 자르기 
+				ex) 마지막 문자 제거 : sb.setLength(sb.length() -1)
+			toString
 
+STRING
+	메서드
+		split(' ') : 구분해서 배열로 저장
 2. QUEUE
 	헤더:
 		import java.util.LinkedList;
@@ -78,7 +106,10 @@
 		remove(_) : 값 제거
 		clear: 모든값 제거
 		get(key) : key값의 value
-		
+		keySet : (리턴타입) set<String> keys
+		containsKey
+		containsValue
+		size : 크기 
 		for (Entry<Integer, String> entry : map.entrySet()) {
     		System.out.println("[Key]:" + entry.getKey() + " [Value]:" + entry.getValue());
 		}
@@ -86,3 +117,45 @@
 		for(Integer i : map.keySet()){ //저장된 key값 확인
     		System.out.println("[Key]:" + i + " [Value]:" + map.get(i));
 		}
+		
+4. List
+	메소드
+		add(value) : 특정 값 넣기
+		add(index, value) : index 값에 특정 값 넣기
+		
+		size : 리스트 크기
+		get(index) : index에 위치한 value 가져오기
+		indexof(value) : value가 어느 위치에 있는지 가져오기
+		contains(value) : value 가지고 있니? true/false
+		isEmpty() : 비어있니? true/false
+		
+		set(index, val) : 값 수정
+		
+		remove(index/val) : 값 삭제
+		clear : 전체 삭제
+		removeif 
+	참고
+		https://goodteacher.tistory.com/281
+		
+5. HashSet
+	선언
+		Set<String> set = new HashSet<>(); 
+	메소드
+		add(val) : 값 추가( 순서 없고 중복 허용X)
+		size: 크기
+		isEmpty: 비어있는지
+		contains(val) : 값 가지고 있는지
+		remove : 값 삭제 
+		clear : 다 삭제
+	기타-값 출력
+		(방법1)
+		for(String str : set) 
+			System.out.println(str);
+		
+		(방법2)
+		Iterator<String> iter = set.iterator(); 
+		while(iter.hasNext()) 
+			System.out.println(iter.next());
+		
+		
+		
