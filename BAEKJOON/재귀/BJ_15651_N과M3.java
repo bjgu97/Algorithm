@@ -1,52 +1,58 @@
 package 재귀;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.io.IOException;
 import java.util.StringTokenizer;
-
-class Main {
-
+ 
+public class BJ_15651_N과M3 {
+	
+	public static int[] arr;
+	public static boolean[] checked;
+	public static int N, M;
+	public static StringBuilder sb;
 	public static void main(String[] args) throws IOException {
-		// 자연수 N, M 주어져을 때 길이 M인 수열을 모두 구하기
+		sb = new StringBuilder();
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		int N = Integer.parseInt(st.nextToken());
+ 
+		// 입력받는다.
+		// N : 전체 수 목록
+		// M : 몇 개 뽑을건지
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+ 
+		// arr : 결과 저장할 배열 
+		arr = new int[M];
 		
-		List<String> arr = new ArrayList<>();
-		arr.add("a");
-		arr.add("b");
-		arr.add("c");
-
-		List<String> result = new ArrayList<>();
-		reculsion(arr, result, arr.size(), 2);
-
+		//checked : 확인했는지 저장할 배열
+		checked = new boolean[N+1];
+		dfs(0);
+		
+		System.out.println(sb);
 	}
-
-	/**
-	 * 순열 구하기
-	 * 
-	 * @param arr    : 기준 리스트
-	 * @param result : 결과를 담아줄 리스트
-	 * @param n      : 전체 갯수
-	 * @param r      : 뽑을 갯수
-	 */
-	private static void reculsion(List<String> arr, List<String> result, int n, int r) {
-
-		if (r == 0) {
-
-			System.out.println(result.toString());
+ 
+	public static void dfs(int depth) {
+		//다 뽑았으면
+		if (depth == M) { //2 
+			//순열 생성 완료!
+			for (int i = 0; i < M; i++) {
+				sb.append(arr[i]).append(' ');
+			}
+			sb.append('\n');
 			return;
 		}
-
-		for (int i = 0; i < n; i++) {
-
-			result.add(arr.remove(i));
-			reculsion(arr, result, n - 1, r - 1);
-			arr.add(i, result.remove(result.size() - 1));
+		else {
+			for (int i = depth+1; i <= N; i++) { //0+1 ~ 4
+				if(checked[i] == true) continue;
+				arr[depth] = i;
+				checked[i] = true;
+				dfs(depth + 1);
+				checked[i] = false;
+			}
 		}
 	}
+ 
 }

@@ -76,6 +76,14 @@
 STRING
 	메서드
 		split(' ') : 구분해서 배열로 저장
+1. STACK
+	메소드
+		pop : 값 뺴기
+		peek: top 반환하기(뺴지는 앟기)
+		isEmpty
+		size
+		push : 값 넣기
+
 2. QUEUE
 	헤더:
 		import java.util.LinkedList;
@@ -88,6 +96,7 @@ STRING
 		add: 값 추가 (성공시 true, 공간 없어 실패하면 exceptipon)
 		offer: 값 추가(실패시 false)
 		poll: 첫번쨰값 반환하고 제거, 비어있으면 null
+		isEmpty
 		remove: 첫번째값 제거
 		clear: 초기화
 		peek: 첫번째값 참조
