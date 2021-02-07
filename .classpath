@@ -6,5 +6,6 @@
 	<classpathentry kind="src" path="BAEKJOON"/>
 	<classpathentry kind="src" path="SW"/>
 	<classpathentry kind="src" path="class"/>
+	<classpathentry kind="src" path="etc"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

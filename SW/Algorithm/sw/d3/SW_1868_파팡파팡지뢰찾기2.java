@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class SW_1868_파팡파팡지뢰찾기 {
+public class SW_1868_파팡파팡지뢰찾기2 {
 	static char[][] graph;
 	static int[][] deltas = {{-1, 0}, {-1, 1}, {0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}};
 	                         //위       위오    오       아오   ㅇ      아왼     왼        위왼
@@ -49,13 +49,14 @@ public class SW_1868_파팡파팡지뢰찾기 {
 			}
 				
 			
-			// 3. 주변(8곳)에 폭탄이 없으면 answer + 1  -> isZero()
-			// 4. 그 다음 주변을 true로 변경. -> search()
+			// 3. 주변(8곳)에 폭탄이 없으면 answer + 1 
+			// 4. 그 다음 주변을 true로 변경. (다시 방문 안하기 위해)
 			for(int w= 0; w < N; w++) {
 				for(int h = 0; h < N; h++) {
-					if(graph[w][h] == '.' && isZero(w, h) && visited[w][h] == false) { // . 이고
-						answer++;
-						search(w, h);
+					// . 지점을 찾고, 주변에 폭탄이 없고, 방문하지 않은 곳이면, 
+					if(graph[w][h] == '.' && isZero(w, h)  && visited[w][h] == false) {
+						answer++; // 일단 answer +1 하고
+						search(w, h); // 탐색
 					}
 					
 					
@@ -83,14 +84,21 @@ public class SW_1868_파팡파팡지뢰찾기 {
 		for(int d = 0; d < deltas.length; d++) {
 			int nh = h + deltas[d][0];
 			int nw = w + deltas[d][1];
-			
-			if(isIn(nw, nh) && graph[nw][nh] == '.') { 
+			// 주변이 . 이고 방문하지 않은 곳이고 
+			if(isIn(nw, nh) && graph[nw][nh] == '.' && visited[nw][nh] == false) { 
+				//visited[nw][nh] = true;
+				if(isZero(nw, nh) == true) {
+					search(nw, nh);
+				}
+				
 				visited[nw][nh] = true;
+				
 			}	
 		}
 	}
 	
 	
+	// 팔방탐색해서 주변에 지뢰가 있는지 확인하는 함수
 	public static boolean isZero(int w, int h) { 
 		cnt = 0;
 		for(int d = 0; d < deltas.length; d++) {
@@ -98,7 +106,7 @@ public class SW_1868_파팡파팡지뢰찾기 {
 			int nw = w + deltas[d][1];
 			
 			//주변에 폭탄 있는지 확인
-			if(isIn(nh, nw) && graph[nw][nh] == '*') { 
+			if(isIn(nh, nw)  && graph[nw][nh] == '*') { 
 				cnt++;
 			}			
 		}

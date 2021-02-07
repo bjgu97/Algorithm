@@ -9,45 +9,39 @@ public class 좋은아침_연습 {
 	static boolean[] isSelected;
 	
     public static void main(String[] args) {
-    	N =  3; // N개 고른다. 
-        M = 6; // 1부터 M까지의 자연수 중에서. 
+    	N =  2; // N개 고른다. 
+        M = 4; // 1부터 M까지의 자연수 중에서. 
     	numbers = new int[N];
         isSelected = new boolean[M+1]; //1부터 6개까지 수 중에서.
-        
-        System.out.println("부분집합");
-        //powerset();
-        
-        System.out.println("중복조합");
-        makeCombinationDup(0, 1);        
-        
-        System.out.println("조합");
-        makeCombination(0,  1);
         
         System.out.println("순열");
         makePermutation(0);
         
         System.out.println("중복순열");
-        makePermutationDup(0);
-        }
-
-    static void powerset() { }
-    
-    static void makeCombination(int toChoose, char [] choosed, int startIdx) {}
-    
-    
-    static void makePermutation(int toChoose, char [] choosed, boolean [] visited) {}
+        //makePermutationDup(0);
+        
+        System.out.println("조합");
+        //makeCombination(0,  1);
+        
+        System.out.println("중복조합");
+        //makeCombinationDup(0, 1);        
+        
+        System.out.println("부분집합");
+       // powerSet();
+        
+    }
     
 	///////////////////////////////
 	//       순열: mPn           //
 	///////////////////////////////
     static void makePermutation(int cnt) {
     	if(cnt == N) {
-    		totalCnt++;
     		System.out.println(Arrays.toString(numbers));
     		return;
     	}
     	for(int i = 1; i <= M; i++) {
     		if(isSelected[i]) continue;
+    		
     		numbers[cnt] = i;
     		isSelected[i] = true;
     		makePermutation(cnt+1);
@@ -99,4 +93,10 @@ public class 좋은아침_연습 {
     		makeCombination(cnt+1, i+1);
     	}
     }
+    
+    
+	///////////////////////////////
+	//           부분집합        //
+	///////////////////////////////
+    //static void powerSet();
 }
