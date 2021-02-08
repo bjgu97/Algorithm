@@ -15,13 +15,13 @@ public class 좋은아침_연습 {
         isSelected = new boolean[M+1]; //1부터 6개까지 수 중에서.
         
         System.out.println("순열");
-        makePermutation(0);
+        //makePermutation(0);
         
         System.out.println("중복순열");
         //makePermutationDup(0);
         
         System.out.println("조합");
-        //makeCombination(0,  1);
+        makeCombination(0,  1);
         
         System.out.println("중복조합");
         //makeCombinationDup(0, 1);        

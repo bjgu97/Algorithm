@@ -8,7 +8,6 @@ public class SW_1868_파팡파팡지뢰찾기2 {
 	static char[][] graph;
 	static int[][] deltas = {{-1, 0}, {-1, 1}, {0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}};
 	                         //위       위오    오       아오   ㅇ      아왼     왼        위왼
-	static int[][] deltas2 = {{-1,0}, {0,1}, {1,0}, {0, -1}};
 	
 	static int N;
 	static int cnt; // cnt: 폭탄 개ㅜ수
