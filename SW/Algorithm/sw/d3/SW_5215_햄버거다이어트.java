@@ -24,6 +24,31 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class SW_5215_햄버거다이어트 {
+	// 사용자정d의 class 만들기. 
+	static class Material{
+		int sat;
+		int cal;
+		public Material(int sat, int cal) {
+			super();
+			this.sat = sat;
+			this.cal = cal;
+		}
+		@Override
+		public String toString() {
+			return "Material [sat=" + sat + ", cal=" + cal + "]";
+		}
+		
+	}
+	
+	// 어떤 것들이 뽑혔는지가 아니라 여기까지 뽑혔을 때 만족도와 칼로리가 관심사. 
+	static void subSetByPermutation(int toChoose, int[] choosed, int cal, int sat) {
+		if(toChoose == 0) {
+			// 다 뽑았다. 결과 출력하자. 
+			MAX_SAT = Math.max(MAX_SAT, sat);
+			return;
+		}
+		
+	}
 	static int N;
 	static int L;
 	static int calSum;
