@@ -50,6 +50,5 @@ public class BJ_11047_동전 {
 			}
 		}
 		*/
-		System.out.println(cnt);
 	}
 }

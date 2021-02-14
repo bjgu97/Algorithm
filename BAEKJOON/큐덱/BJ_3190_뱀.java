@@ -6,7 +6,7 @@
 * @time
 * @caution 큐,,어떻게 떠올리지
 */
-package Study4;
+package 큐덱;
 
 import java.io.BufferedReader;
 import java.io.IOException;
