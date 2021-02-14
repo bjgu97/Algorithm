@@ -4,46 +4,45 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class BAEKJOON_6588_골드바흐의추측 {
-public static void main(String[] args) throws NumberFormatException, IOException {
-	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	StringBuilder sb = new StringBuilder();
-	int N;
-	while((N = Integer.parseInt(br.readLine())) != 0) {
+	static boolean[] check = new boolean[1000001]; // 소수 담을 배열 생성
 
-		List<Integer> list = new ArrayList<Integer>();
-
-		list.add(2);
-		for(int i = 3; i < N; i++) { //5 ~ 8
-			for(int j = 0; j < list.size(); j++) {
-				if(i % list.get(j) == 0) break; // 소수 아니면 pass
-				if(j+1 == list.size()) list.add(i);
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		int N;
+		
+		for(int i = 2; i <= 1000000; i++) {
+			for(int j = i*2; j <= 1000000; j+=i) {
+				check[j] = true; // 소수 아닌 숫자는 true로. 소수는 false.
 			}
 		}
-	
 		
-		Collections.sort(list);
-		list.remove(0);
-
-		boolean aa = true;
+//		System.out.println(Arrays.toString(check));
 		
-		for(int i = 0; i < list.size(); i++) {
-			for(int j = list.size()-1; j >=0; j--) {
-				if(list.get(i) + list.get(j) == N && aa == true) {
-					sb.append(N).append(" = ").append(list.get(i)).append(" + ").append(list.get(j)).append("\n");
-					aa = false;
+		while(true) {
+			N = Integer.parseInt(br.readLine());
+			boolean a = true;
+			
+			if(N == 0) // 종료 조건
+				break;
+			
+			for(int i = 2; i <= N; i++) {
+				if(!check[i] && !check[N-i]) {
+					System.out.println(N + " = " + i + " + " + (N-i));
+					a = false;
 					break;
 				}
-
 			}
 			
+			if(a)
+				System.out.println("Goldbach's conjecture is wrong.");
+			
 		}
-		if(aa == true)
-			sb.append("Goldbach's conjecture is wrong.");
-}
-	System.out.println(sb);
-}
+		
+	}
 }

@@ -16,7 +16,6 @@ public class BJ_11652_카드 {
 			NArr[n] = a;
 		}
 		
-		long[] countArr = new long[(int)Math.pow(2, 63)];
 		
 		for(int i = 0; i < N; i++) {
 			countArr[NArr[i]]++;
@@ -25,5 +24,7 @@ public class BJ_11652_카드 {
 		for(int i= 0; i < countArr.length; i++) {
 			max = (int) Math.max(max, countArr[i]);
 		}
+		
+		System.out.println(max);
 	}
 }
