@@ -11,10 +11,8 @@ package Study4;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class BJ_3190_뱀 {
@@ -75,6 +73,8 @@ public class BJ_3190_뱀 {
 		// 4. 구현 
 		int time = 0;
 		int dir = 0;
+		
+		// 위치 이동시 push. tail가 first, head가 last. 
 		Deque<Pos> deque = new LinkedList<>();
 		deque.add(new Pos(1, 1)); // 시작 위치 큐에 저장
 		
@@ -85,11 +85,9 @@ public class BJ_3190_뱀 {
 			
 			// 몸 길이를 늘려 다음칸에 위치
 			// dir 0: 우, dir 1: 하, dir 2: 좌, dir 3: 상
-//			System.out.println("dir: " + dir);
 			int nr = head.r + deltas[dir][0] ;
 			int nc = head.c + deltas[dir][1] ;
 			
-//			System.out.println("(nr, nc): " + nr + "," + nc);
 			// 벽에 부딪히거나 몸통(2) 만나면 종료
 			if((nr <= 0 || nr > N || nc <= 0 || nc >N) || map[nr][nc] == 2)
 				break;
@@ -97,30 +95,29 @@ public class BJ_3190_뱀 {
 			// 사과(1) 있다면
 			if(map[nr][nc] == 1) {
 				deque.add(new Pos(nr, nc)); // 이동 하고
-				map[nr][nc] = 2; // 2로 표시
+				map[nr][nc] = 2; // 이동한 좌표 2로 표시
 			}
 			
-			//사과가 없는 곳으로 이동했다면
+			// 사과가 없는 곳으로 이동했다면
 			else if(map[nr][nc] == 0) {
-				// 한칸 이동 하고
-				deque.add(new Pos(nr, nc)); 
-				map[nr][nc] = 2;
-				//꼬리 한칸 자르기
-				Pos tail = deque.poll(); //(1,1)
-				map[tail.r][tail.c]= 0; 
+				deque.add(new Pos(nr, nc)); // 한칸 이동 하고 
+				map[nr][nc] = 2; // 이동한 좌표 2로 표시 하고
+				Pos tail = deque.poll(); //꼬리 한칸 자르기
+				map[tail.r][tail.c]= 0;  // 자른 좌표 0으로 표시
 			}
 			
 			
 			// 방향 전환 수행
-			if(command[time] == 'D') {
-				dir += 1;
+			if(command[time] == 'D') { // 기본: 우
+				dir += 1; // 우회전하면 우->하, 하->좌, 좌->상
 				if(dir > 3)
-					dir = dir % 4;
+					dir = dir % 4; //델타범위 넘어가면 다시 0부터..
 			}
-			else if(command[time] == 'L') {
-				dir -= 1;
+			
+			else if(command[time] == 'L') { // 좌회전하면
+				dir -= 1; // 반대로
 				if(dir < 0)
-					dir = 3;
+					dir = 3; // 델타 범위 넘어가면 3부터 다시..
 				
 			}
 

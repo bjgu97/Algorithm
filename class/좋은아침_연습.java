@@ -98,5 +98,13 @@ public class 좋은아침_연습 {
 	///////////////////////////////
 	//           부분집합        //
 	///////////////////////////////
-    //static void powerSet();
+    private static void powerset(int cnt) {
+    	if (cnt == M) {
+    		return;
+    	}
+    	isSelected[cnt] = true;
+    	powerset(cnt+1);
+    	isSelected[cnt] = false;
+    	powerset(cnt+1);
+    }
 }
