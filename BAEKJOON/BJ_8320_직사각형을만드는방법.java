@@ -11,6 +11,7 @@ public class BJ_8320_직사각형을만드는방법 {
 		for(int i = 1; i <= n; i++) { 
 			for(int j = i; i*j <= n; j++) {
 				cnt++;
+				System.out.println("i, j: " + i + "," + j);
 			}
 		}
 		
