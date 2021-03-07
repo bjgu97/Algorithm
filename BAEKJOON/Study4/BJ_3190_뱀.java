@@ -121,15 +121,15 @@ public class BJ_3190_뱀 {
 				
 			}
 
-//			for(int i = 0; i < N; i++) {
-//				for(int j = 0; j < N; j++) {
-//					System.out.print(map[i][j]);
-//				}
-//				System.out.println();
-//			}
-//			System.out.println("queue: " + deque);
-//			System.out.println("time: " + time);
-//			System.out.println();
+			for(int i = 0; i < N; i++) {
+				for(int j = 0; j < N; j++) {
+					System.out.print(map[i][j]);
+				}
+				System.out.println();
+			}
+			System.out.println("queue: " + deque);
+			System.out.println("time: " + time);
+			System.out.println();
 			
 			
 
