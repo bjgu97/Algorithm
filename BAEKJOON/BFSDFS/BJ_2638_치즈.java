@@ -3,13 +3,12 @@ package BFSDFS;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class BJ_2636_치즈 {
+public class BJ_2638_치즈 {
 	static int R;
 	static int C;
 	static int[][] graph;
@@ -52,7 +51,6 @@ public class BJ_2636_치즈 {
 		}
 		
 		System.out.println(time);
-		System.out.println(numCheese);
 	}
 	
 	static Queue<Point> queue = new LinkedList<>();
@@ -63,7 +61,7 @@ public class BJ_2636_치즈 {
 	static void bfs() {
 		queue.add(new Point(0, 0)); // 첫 좌표 넣고
 		visited = new boolean[R][C];
-		visited[0][0] =  true; // 첫 좌표 방문 처리 하고
+		visited[0][0] =  true; // 첫 좌표(공기) 방문 처리 하고
 
 		// 한번 다 돌면서
 		while(!queue.isEmpty()) {
@@ -78,13 +76,18 @@ public class BJ_2636_치즈 {
 				if(nr < 0 || nc < 0 || nr >= R || nc >= C)
 					continue;
 				
-				if(visited[nr][nc] == true)
+				if(visited[nr][nc] ==true) //방문한 곳이면
 					continue;
 				
-				// 겉 치즈 만나면 녹이기
-				if(graph[nr][nc] == 1) {
-					graph[nr][nc] = 3; // 표시 해주고
-					outCnt++; // 겉 치즈 개수
+				
+				// 겉 치즈 만나면 (외부와 한 면 접촉)
+				if(graph[nr][nc] != 0 && graph[nr][nc] <=2) {
+					graph[nr][nc] += 1;
+				}
+				
+				//외부와 두면 이상 접촉하면
+				else if(graph[nr][nc] >=3) {
+					outCnt++; // 겉 치즈 개수 증가
 				}
 				
 				// 공기 만나면
@@ -93,13 +96,13 @@ public class BJ_2636_치즈 {
 				}
 				
 				visited[nr][nc] = true;
+				
 			}
 		}
-		
 		for(int[] a : graph)
 			System.out.println(Arrays.toString(a));
-		System.out.println(cnt);
 		System.out.println();
+		
 		
 		// 치즈 녹이기
 		numCheese = 0;
@@ -114,6 +117,7 @@ public class BJ_2636_치즈 {
 		
 		cnt -= numCheese;
 		
+		System.out.println("graph: ");
 		for(int[] a : graph)
 			System.out.println(Arrays.toString(a));
 		System.out.println(cnt);
@@ -121,3 +125,15 @@ public class BJ_2636_치즈 {
 	}
 	
 }
+
+/*
+8 9
+0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0
+0 1 1 0 0 0 1 1 0
+0 1 0 1 1 1 0 1 0
+0 1 0 0 1 0 0 1 0
+0 1 0 1 1 1 0 1 0
+0 1 1 0 0 0 1 1 0
+0 0 0 0 0 0 0 0 0
+*/
