@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class 좋은아침_연습 {
@@ -7,7 +8,7 @@ public class 좋은아침_연습 {
 	static int[] numbers;
 	static int N, M, totalCnt;
 	static boolean[] isSelected;
-	
+	static List<Integer> list;
     public static void main(String[] args) {
     	N =  2; // N개 고른다. 
         M = 4; // 1부터 M까지의 자연수 중에서. 
@@ -21,13 +22,13 @@ public class 좋은아침_연습 {
         //makePermutationDup(0);
         
         System.out.println("조합");
-        makeCombination(0,  1);
+        //makeCombination(0,  1);
         
         System.out.println("중복조합");
         //makeCombinationDup(0, 1);        
         
         System.out.println("부분집합");
-       // powerSet();
+        powerset(0);
         
     }
     
@@ -92,6 +93,8 @@ public class 좋은아침_연습 {
     		numbers[cnt] = i;
     		makeCombination(cnt+1, i+1);
     	}
+    	int[] a = new int[10];
+    	Collections.sort(list);
     }
     
     
@@ -100,6 +103,7 @@ public class 좋은아침_연습 {
 	///////////////////////////////
     private static void powerset(int cnt) {
     	if (cnt == M) {
+    		System.out.println(Arrays.toString(isSelected));
     		return;
     	}
     	isSelected[cnt] = true;
