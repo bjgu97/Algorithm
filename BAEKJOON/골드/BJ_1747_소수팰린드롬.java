@@ -8,28 +8,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BJ_1747_소수팰린드롬 {
-	static class Point {
-		int x;
-		int y;
-		
-		Point(int x, int y) {
-			this.x = x;
-			this.y= y;
-		}
-
-		@Override
-		public String toString() {
-			return "Point [x=" + x + ", y=" + y + "]";
-		}
-		
-		
-	}
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int N = Integer.parseInt(br.readLine());
 		
-		// 소수 구하기
-		boolean[] arr = new boolean[2000000];
+		// 1. 소수 구하기 - 에라토스테네스의 체
+		boolean[] arr = new boolean[1003002]; // 배열 크기: (1000000 넣었을때 나오는 값 + 1)
 		Arrays.fill(arr, true);
 		arr[1] = false;
 		for(int i = 2; i < arr.length; i++) {
@@ -38,11 +22,10 @@ public class BJ_1747_소수팰린드롬 {
 			}
 		}
 		
-		
-		for(int i = 1; i < arr.length; i++) {
-			if(arr[i] == true && i >= N) { // 소수이면
-//				System.out.println("i: " + i);
-				boolean check = checkPalindrome(i);
+		// 2. 소수 중 팰린드롬 구하기
+		for(int i = N; i < arr.length; i++) {
+			if(arr[i] == true) { // 소수이면
+				boolean check = checkPalindrome(i); // 팰린드롬 검사
 				if(check) {
 					System.out.println(i);
 					break;
@@ -51,18 +34,19 @@ public class BJ_1747_소수팰린드롬 {
 		}
 	}
 	
+	// 3. 팰린드롬 검사
 	static boolean checkPalindrome(int n) {
 		String s = Integer.toString(n);
 		char[] cArr = s.toCharArray();
-//		System.out.println("cARr: " + Arrays.toString(cArr));
 		boolean flag = true;
+		
+		// 문자열로 변환 후 앞뒤 동일 여부 검사
 		for(int i = 0; i < cArr.length; i++) {
-//			System.out.println("cArr[i]: " + cArr[i]);
-//			System.out.println("cArr[N-1-i]: " + cArr[cArr.length-1-i]);
 			if(cArr[i] != cArr[cArr.length-1-i]) {
 				flag = false;
 			}
 		}
+		
 		if(flag)
 			return true;
 		else

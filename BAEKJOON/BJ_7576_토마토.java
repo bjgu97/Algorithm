@@ -17,6 +17,104 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class BJ_7576_토마토 {
+	static class Point {
+		int r;
+		int c;
+		int cnt;
+		
+		Point(int r, int c, int cnt) {
+			this.r = r;
+			this.c = c;
+			this.cnt = cnt;
+		}
+		
+		@Override
+		public String toString() {
+			return "Point [r=" + r + ", c=" + c + "]";
+		}
+	}
+	
+	static int[][] map;
+	static boolean[][] visited;
+	static Queue<Point> queue = new LinkedList<>();
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int M = Integer.parseInt(st.nextToken()); // 가로칸수
+		int N = Integer.parseInt(st.nextToken()); // 세로칸수
+		
+		map = new int[N][M];
+		visited = new boolean[N][M];
+		
+		for(int n = 0; n < N; n++) {
+			st = new StringTokenizer(br.readLine());
+			for(int m = 0; m < M; m++) {
+				map[n][m] = Integer.parseInt(st.nextToken());
+				if(map[n][m] == 1) { // 익은 토마토이면
+					visited[n][m] = true;
+					queue.add(new Point(n, m, 0));
+				}
+			}
+		}
+		
+		
+		// 1: 익은 토마토
+		// 0: 익지 않은 토마토
+		// -1: 토마토가 들어있지 않은 칸
+		bfs(N, M);
+	}
+	
+	static int[][] deltas = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+	static void bfs(int N, int M) {
+		int cnt = -1;
+		while(!queue.isEmpty()) {
+			Point p = queue.poll();
+			int r = p.r;
+			int c = p.c;
+			cnt = p.cnt;
+			
+			for(int d =0; d < deltas.length; d++) {
+				int nr = r + deltas[d][0];
+				int nc = c + deltas[d][1];
+				
+				if(nr < 0 || nc < 0 || nr >= N || nc >= M)
+					continue;
+				
+				if(visited[nr][nc])
+					continue;
+				
+				if(map[nr][nc] == -1) {
+					visited[nr][nc] = true;
+					continue;
+				}
+				if(map[nr][nc] == 0) {
+					map[nr][nc] = 1; // 토마토 익히고
+					visited[nr][nc] = true; // 방문처리하고
+					queue.add(new Point(nr, nc, cnt+1));
+
+				}
+			}
+			
+			
+		}
+		boolean flag = true;
+		for(int i = 0; i < N; i++) {
+			for(int j = 0; j < M; j++) {
+				if(map[i][j] != -1 && visited[i][j] == false) {
+					flag = false;
+				}
+			}
+		}
+		
+		if(flag)
+			System.out.println(cnt);
+		else
+			System.out.println(-1);
+	}
+}
+/*
+public class BJ_7576_토마토 {
 	static int M;
 	static int N;
 	static int[][] graph;
@@ -120,3 +218,4 @@ public class BJ_7576_토마토 {
 
 	}
 }
+*/
