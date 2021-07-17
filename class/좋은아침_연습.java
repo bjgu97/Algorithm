@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class 좋은아침_연습 {
+
    // static char[] src = {'a', 'b', 'c', 'd'};
 	static int[] numbers;
 	static int N, M, totalCnt;
@@ -35,6 +36,7 @@ public class 좋은아침_연습 {
 	///////////////////////////////
 	//       순열: mPn           //
 	///////////////////////////////
+     
     static void makePermutation(int cnt) {
     	if(cnt == N) {
     		System.out.println(Arrays.toString(numbers));
@@ -44,6 +46,7 @@ public class 좋은아침_연습 {
     		if(isSelected[i]) continue;
     		
     		numbers[cnt] = i;
+    		
     		isSelected[i] = true;
     		makePermutation(cnt+1);
     		isSelected[i] = false;
@@ -68,6 +71,9 @@ public class 좋은아침_연습 {
     ///////////////////////////////
     //       중복조합: mHn      //
     ///////////////////////////////
+     
+    
+    
     static void makeCombinationDup(int cnt, int start) {
     	if(cnt == N) {
     		totalCnt++;
@@ -83,6 +89,9 @@ public class 좋은아침_연습 {
 	///////////////////////////////
 	//           조합: mCn       //
 	///////////////////////////////
+    
+    
+    
     static void makeCombination(int cnt, int start) {
     	if(cnt == N) {
     		totalCnt++;
@@ -93,11 +102,28 @@ public class 좋은아침_연습 {
     		numbers[cnt] = i;
     		makeCombination(cnt+1, i+1);
     	}
-    	int[] a = new int[10];
-    	Collections.sort(list);
     }
     
     
+	///////////////////////////////
+	//       순열: mPn           //
+	///////////////////////////////
+     
+//    static void makePermutation(int cnt) {
+//    	if(cnt == N) {
+//    		System.out.println(Arrays.toString(numbers));
+//    		return;
+//    	}
+//    	for(int i = 1; i <= M; i++) {
+//    		if(isSelected[i]) continue;
+//    		
+//    		numbers[cnt] = i;
+//    		
+//    		isSelected[i] = true;
+//    		makePermutation(cnt+1);
+//    		isSelected[i] = false;
+//    	00000000000}
+//    }
 	///////////////////////////////
 	//           부분집합        //
 	///////////////////////////////

@@ -1,4 +1,4 @@
-package Study1;
+
 
 import java.util.LinkedList; //자바에서 QUEUE는 linked list 이용
 import java.util.Queue;

@@ -9,25 +9,37 @@ public class BJ_14501_퇴사 {
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int N = Integer.parseInt(br.readLine());
-		int[][] arr = new int[N][2];
+		
+		int[] T = new int[N];
+		int[] P = new int[N];
 		
 		for(int n = 0; n < N; n++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
-			arr[n][0] = Integer.parseInt(st.nextToken()); // 일
-			arr[n][1] = Integer.parseInt(st.nextToken()); // 비용
+			T[n] = Integer.parseInt(st.nextToken());
+			P[n] = Integer.parseInt(st.nextToken());
 		}
+		// 입력 끝
 		
-		int[] temp = new int[N+1]; // n일부터 퇴사날까지 얻을 수 있는 최대 이익
-		
-		for(int i = 0; i < N; i++) {
-			if(i + arr[i][0] < N+1) { // 날짜 범위 안넘어 갈 때
-				temp[i + arr[i][0]] = Math.max(temp[i + arr[i][0]], temp[i] + arr[i][1]);
-			}
-			else
-				temp[i+1] = Math.max(temp[i+1], temp[i]);
-		}
-	
-		System.out.println(temp[N]);
+		// 시작 지점 반복
+		int max = 0;
+		for(int n = 0; n < N; n++) {
+			int answ = 0;
+			int pos = n;
+			while(pos < N) {
+				if(pos + T[pos]-1 < N) {
+					answ += P[pos];
+					pos += T[pos];
+				}
+				else
+					break;
+				System.out.println("pos: " + pos);
 
+				System.out.println("answ: " + answ);
+				System.out.println();
+			}
+			max = Math.max(max, answ);
+		}
+		
+		System.out.println(max);
 	}
 }

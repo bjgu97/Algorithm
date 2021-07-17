@@ -250,7 +250,6 @@ public class Solution {
 					if(map[i][j] == 'P') {
 						
 						
-						// 거리1로 앉아있으면.
 						for(int d = 0; d < deltas.length; d++) {
 							int ni = i + deltas[d][0];
 							int nj = j + deltas[d][1];
@@ -264,7 +263,6 @@ public class Solution {
 							}
 						}
 						
-						// 거리 2로 앉아있으면.
 						for(int d = 0; d < deltas2.length; d++) {
 							
 							int ni = i + deltas2[d][0];
@@ -284,15 +282,11 @@ public class Solution {
 								}
 								else {
 									check = false;
-									System.out.println("ni, nj: " + ni + "," + nj);
-									System.out.println("????????????????");
 									break outer;
 								}
-//								check = false;
 							}
 						}
 						
-						// 거리가 루트2이면
 						for(int d = 0; d < deltas3.length; d++) {
 							int ni = i + deltas3[d][0];
 							int nj = j + deltas3[d][1];
@@ -311,24 +305,10 @@ public class Solution {
 									check = false;
 									break outer;
 								}
-//								if(i == ni && map[i][Math.abs(nj + j)/2] == 'X') {
-//									check = true;
-//								}
-//								else if(j == nj && map[Math.abs(ni + i)/2][j] == 'X') {
-//									check = true;
-//								}
-//								else {
-//									check = false;
-//									System.out.println("ni, nj: " + ni + "," + nj);
-//									System.out.println("????????????????");
-//								}
-////								check = false;
 							}
 							
 						}
 					}
-					// 거리 2 이하에 응시자가 있으면
-						// 하지만 사이가 X이면
 				}
 			}
 			

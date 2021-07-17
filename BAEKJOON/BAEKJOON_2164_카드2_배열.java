@@ -1,4 +1,4 @@
-package Study1;
+
 
 import java.util.Scanner;
 

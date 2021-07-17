@@ -1,8 +1,8 @@
-package Study1;
+
 
 import java.util.Scanner;
 
-public class Main {
+public class BAEKJOON_1920_수찾기_순차탐색 {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		int N = scan.nextInt();

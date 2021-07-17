@@ -1,4 +1,4 @@
-package Study1;
+
 
 public class BAEKJOON_2164_카드2_연결리스트 {
 

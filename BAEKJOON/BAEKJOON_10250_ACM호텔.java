@@ -1,8 +1,8 @@
-package Study1;
+
 
 import java.util.Scanner;
 
-public class BAEKJOON_1259_팰린드롬수 {
+public class BAEKJOON_10250_ACM호텔 {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		int T = scan.nextInt();
@@ -21,7 +21,8 @@ public class BAEKJOON_1259_팰린드롬수 {
                 x = N/H;
                 y = H;
             }
-			System.out.printf("%d%02d\n", y, x); //문자열 포매팅: 0으로 채우기
+			
+			System.out.println(y*100+x); //문자열 포매팅: 0으로 채우기
 		}
 		}
 	}
