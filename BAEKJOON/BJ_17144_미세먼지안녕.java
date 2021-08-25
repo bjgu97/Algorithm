@@ -8,18 +8,18 @@ import java.util.StringTokenizer;
 
 public class BJ_17144_미세먼지안녕 {
 	static class Point {
-		int r;
-		int c;
-		int time;
+		int r; // 위치1
+		int c; // 위치2
+		int amount; // 미세먼지양
 		
-		Point(int r, int c, int time) {
+		Point(int r, int c, int amount) {
 			this.r = r;
 			this.c = c;
-			this.time = time;
+			this.amount = amount;
 		}
 		
-		public String toString(int r, int c, int time) {
-			return "[r: " + r + "c: " + c + "time: " + time + "]";
+		public String toString(int r, int c, int amount) {
+			return "[r: " + r + "c: " + c + "amount: " + amount + "]";
 		}
 	}
 	
@@ -38,108 +38,119 @@ public class BJ_17144_미세먼지안녕 {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		R = Integer.parseInt(st.nextToken()); // 행
-		C = Integer.parseInt(st.nextToken()); // 열
 		
-		T = Integer.parseInt(st.nextToken()); // 지난 시간(초)
+		R = Integer.parseInt(st.nextToken()); 
+		C = Integer.parseInt(st.nextToken());
+		T = Integer.parseInt(st.nextToken()); 
 		
 		map = new int[R][C];
-		tmpMap = new int[R][C];
-		visited = new boolean[R][C];
 		
-		for(int r =0; r < R; r++) {
+		for(int r = 0; r < R; r++) {
 			st = new StringTokenizer(br.readLine());
 			for(int c = 0; c < C; c++) {
 				map[r][c] = Integer.parseInt(st.nextToken());
-				if(map[r][c] != 0 && map[r][c] != -1) { // 미세먼지이면
-					queue.add(new Point(r, c, 0)); //큐에 추가
-				}
-				if(map[r][c] == -1) { // 공기청정기 위치 기억
-					airQueue.add(new Point(r, c, 0));
+				
+				if(map[r][c] == -1) { // 공기청정기 위치
+					airQueue.add(new Point(r, c, map[r][c])); // 추가
 				}
 			}
 		}
 		
-		bfs();		
+		// 공기청정기 위치 저장.
+		pos1 = airQueue.poll().r;
+		pos2 = airQueue.poll().r;
+		
+		for(int t = 0; t < T; t++) {
+			
+			find(); // 미세먼지 위치 찾기 
+			
+			spread(); // 확산
+			
+			rotate(); // 공기청정기 작동
+		}
+		
+		int answer = 0;
+		for(int r = 0; r < R; r++) {
+			for(int c = 0; c < C; c++) {
+				if(map[r][c]>0)
+					answer += map[r][c];
+			}
+		}
+		
+		System.out.println(answer);
 			
 	}
 	
+	static void find() {
+		for(int r = 0; r < R; r++) {
+			for(int c = 0; c < C; c++) {				
+				if(map[r][c] != 0 && map[r][c] != -1) { // 미세먼지
+					queue.add(new Point(r, c, map[r][c])); // 추가
+				}
+			}
+		}
+	}
 	static int[][] deltas = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 	
-	static void bfs() {
-		airP = airQueue.poll();
-		pos1 = airP.r;
-		airP = airQueue.poll();
-		pos2 = airP.r;
-		int tempTime = 0;
-		
+	// 1. 확산
+	static void spread() {
 		while(!queue.isEmpty()) {
-			// 미세먼지 확산
 			Point p = queue.poll();
+			
 			int r = p.r;
 			int c = p.c;
-			int time = p.time;
+			int amount = p.amount;
 			
-			System.out.println("time: " + time);
-			if(time == T) // t초 지나면 종료!
-				break; 
+			int numDir = 0; // 확산 방향 개수
 			
-			/// 미세먼지 확산 ///
-			int numDir = 0;
-			for(int d= 0; d < deltas.length; d++) { // 인접한 네 방향으로 확산
+			for(int d = 0; d < deltas.length; d++) {
 				int nr = r + deltas[d][0];
 				int nc = c + deltas[d][1];
-
-				if(nr < 0 || nc < 0 || nr >= R || nc >= C)
+				
+				if(nr < 0 || nc < 0 || nr >= R || nc >= C) // 위치 벗어나면
 					continue;
-
-				if(map[nr][nc] != -1) {
-					numDir++;
-					tmpMap[nr][nc] += map[r][c] / 5;
-					queue.add(new Point(nr, nc, time+1));
-				}
-			} 
-			tmpMap[r][c] += (map[r][c] - (map[r][c] / 5) * numDir);
-			
-			
-			/// 바람 돌리기 /// 
-			//System.out.println("pos1, pos2: " + pos1 + "," + pos2);
-			if(tempTime == time) {
-				System.out.println("!!!!!!!! time: " + time);
-				for(int[] a : tmpMap)
-					System.out.println(Arrays.toString(a));
-				System.out.println();
-				rotate(pos1, pos2);
-				tempTime++;
-				for(int[] a : tmpMap)
-					System.out.println(Arrays.toString(a));
-				System.out.println();
-				System.out.println("---------------------");
+				
+				if(map[nr][nc] == -1) // 공기청정기면
+					continue;
+				
+				map[nr][nc] += amount/5; // 확산
+				numDir++; // 확산 방향 개수
 			}
+			
+			map[r][c] -= (amount / 5) * numDir;
 		}
-		Integer.tos
-		
 	}
+
 	
-	static void rotate(int pos1, int pos2) { // 2, 3
-		int tmp1 = tmpMap[pos1][0]; // 시작값 저장 하고
-		
-		// 회전
-		for(int i = 0; i < pos1; i++) {
-			tmpMap[i+1][0] = tmpMap[i][0];
+	static void rotate() {
+		// 윗 공기청정기 회전
+		for(int i = pos1 -1; i > 0; i--) {
+			map[i][0] = map[i-1][0];
 		}
-		
 		for(int i = 0; i < C-1; i++) {
-			tmpMap[0][i] = tmpMap[0][i+1];
+			map[0][i] = map[0][i+1];
 		}
-		
-		for(int i = 0; i < pos1-1; i++) {
-			tmpMap[i][C-1] = tmpMap[i+1][C-1];
+		for(int i = 0; i < pos1; i++) {
+			map[i][C-1] = map[i+1][C-1];
 		}
-		
-		for(int i= 0; i < C-1; i++) {
-			tmpMap[pos1][i+1] = tmpMap[pos1][i];
+		for(int i = C-1; i > 1; i--) {
+			map[pos1][i] = map[pos1][i-1];
 		}
+		map[pos1][1] = 0;
 		
+		// 아래 공기청정기 회전
+		for(int i = pos2 + 1; i < R-1; i++) {
+			map[i][0] = map[i+1][0];
+		}
+		for(int i = 0; i < C-1; i++) {
+			map[R-1][i] = map[R-1][i+1];
+		}
+		for(int i = R-1; i > pos2; i--) {
+			map[i][C-1] = map[i-1][C-1];
+		}
+		for(int i = C-1; i > 1; i--) {
+			map[pos2][i] = map[pos2][i-1];
+		}
+		map[pos2][1] = 0;
 	}
 }

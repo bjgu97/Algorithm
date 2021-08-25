@@ -1,45 +1,50 @@
+
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class BJ_14501_퇴사 {
+	static int N;
+	static int[] T;
+	static int[] P;
+	static int answer;
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int N = Integer.parseInt(br.readLine());
+		N = Integer.parseInt(br.readLine());
 		
-		int[] T = new int[N];
-		int[] P = new int[N];
+		T = new int[N];
+		P = new int[N];
 		
 		for(int n = 0; n < N; n++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			T[n] = Integer.parseInt(st.nextToken());
 			P[n] = Integer.parseInt(st.nextToken());
 		}
-		// 입력 끝
 		
-		// 시작 지점 반복
-		int max = 0;
-		for(int n = 0; n < N; n++) {
-			int answ = 0;
-			int pos = n;
-			while(pos < N) {
-				if(pos + T[pos]-1 < N) {
-					answ += P[pos];
-					pos += T[pos];
-				}
-				else
-					break;
-				System.out.println("pos: " + pos);
-
-				System.out.println("answ: " + answ);
-				System.out.println();
-			}
-			max = Math.max(max, answ);
+		dfs(0, 0);
+		
+		System.out.println(answer);
+	}
+	
+	static void dfs(int idx, int sum) {
+		System.out.println("idx: " + idx);
+		// 도착 하면
+		if(idx == N) {
+			System.out.println(answer);
+			answer = Math.max(answer, sum);
+			return;
 		}
 		
-		System.out.println(max);
+		// 도착 범위 넘어가면
+		if(idx > N) {
+			return;
+		}
+		
+		dfs(idx + 1, sum); // 현재 idx 선택 안하고 다른날로 넘어가기
+		dfs(idx + T[idx], sum + P[idx]); // 현재 idx 선택
+		
+		
 	}
 }
