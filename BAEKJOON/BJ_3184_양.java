@@ -5,69 +5,29 @@ import java.util.StringTokenizer;
 
 
 public class BJ_3184_양 {
-
-    static int r, c;
-    static String[] s;
-    static boolean[][] visit;
-    static int[][] delta = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-    static int sheep;  // o
-    static int wolf; // v
-
-    static void input() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        r = Integer.parseInt(st.nextToken());
-        c = Integer.parseInt(st.nextToken());
-        s = new String[r];
-        for (int i = 0; i < r; i++)
-            s[i] = br.readLine();
-        visit = new boolean[r][c];
-    }
-
-    static void dfs(int x, int y) {
-        visit[x][y] = true;
-        char cc = s[x].charAt(y);
-        if(cc == 'v') wolf++;
-        if(cc == 'o') sheep++;
-
-        for (int k = 0; k < 4; k++) {
-            int nx = x + delta[k][0];
-            int ny = y + delta[k][1];
-
-            if(nx < 0 || ny < 0 || nx >= r || ny >= c) continue;
-            if(visit[nx][ny]) continue;
-            char c = s[nx].charAt(ny);
-            if(c == '#') continue;
-
-            dfs(nx, ny);
-
-        }
-
-    }
-
-    static void process() {
-        int wo = 0;
-        int sh = 0;
-        for (int i = 0; i < r; i++) {
-            for (int j = 0; j < c; j++) {
-                char c = s[i].charAt(j);
-                if (!visit[i][j] && (c != '#')) {
-                    sheep = 0;
-                    wolf = 0;
-                    dfs(i, j);
-                    if(sheep > wolf) wolf = 0;
-                    else sheep = 0;
-                    wo += wolf;
-                    sh += sheep;
-                }
-            }
-        }
-        System.out.println(sh + " " + wo);
-    }
-
-    public static void main(String[] args) throws IOException {
-        input();
-        process();
-    }
+	public static void main(String[] args) throws IOException {
+		// . : 빈 필드
+		// # : 울타리
+		// o : 양
+		// V : 늑대
+		
+		// 영역 안의 양의 수가 늑대보다 많으면 이기고 늑대 쫓아낸다.
+		// 그렇지 않으면 늑대가 양 모두 먹는다.
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int R = Integer.parseInt(st.nextToken());
+		int C = Integer.parseInt(st.nextToken());
+		
+		char[][] map = new char[R][C];
+		for(int r = 0; r < R; r++) {
+			String s = br.readLine();
+			for(int c = 0; c < C; c++) {
+				map[r] = s.toCharArray();
+			}
+		}
+		
+		
+	}
 
 }

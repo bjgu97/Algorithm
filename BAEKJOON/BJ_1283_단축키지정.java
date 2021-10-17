@@ -3,6 +3,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BJ_1283_단축키지정 {
 	static char c;
@@ -10,78 +12,68 @@ public class BJ_1283_단축키지정 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int N = Integer.parseInt(br.readLine());
 
-		boolean[] count = new boolean[130]; //등록 글자 저장 배열
-		
+		List<Character> registeredChar = new ArrayList<>();
+
 		for(int n = 0; n < N; n++) {
 			boolean check = false;
-
 			String s = br.readLine();
-			char[] cArr2 = s.toCharArray(); // 문자 담는 배열
 			
-			s = s.toLowerCase();
-			char[] cArr = s.toCharArray(); // 소문자 변환 문자 담는 배열 (대소문자 구분X)
-			
-			
-			// string의 첫글자 살펴보기
-			if(cArr[0] != ' ' && count[cArr[0]] == false) { // 첫글자 등록되어있지 않으면
+			// 1단계: 첫 글자 등록
+			if(s.charAt(0) != ' ' && !registeredChar.contains(Character.toLowerCase(s.charAt(0)))) {
 				check = true;
-				count[cArr[0]] = true; // 등록 하고
-				
-				//출력
-				printWord(0, cArr2);				
-				continue;
+				registeredChar.add(Character.toLowerCase(s.charAt(0))); // 첫글자 등록
+				print(0, s);
 			}
-			
-			// 첫글자 등록되어 있으면
-			else { 
-				//공백 다음에 나오는 글자 살펴보기
-				for(int i = 0; i < cArr.length-1; i++) {
-					if(cArr[i] == ' ' && cArr[i+1] != ' ') { // 공백 다음에 글자가 나오고
-						if(count[cArr[i+1]] == false) { //등록되어있지 않다면
+			else {
+				// 2단계: 공백 다음 글자 등록
+				for(int i = 0; i < s.length(); i++) {
+					if(s.charAt(i) == ' ' && s.charAt(i+1) != ' ') {
+						if(!registeredChar.contains(Character.toLowerCase(s.charAt(i+1)))) {
 							check = true;
-							count[cArr[i+1]] = true; //등록 하고
-							//출력
-							printWord(i+1, cArr2);
+							registeredChar.add(Character.toLowerCase(s.charAt(i+1)));
+							print(i+1, s);
 							break;
 						}
 					}
 				}
 				
-				// 나머지 글자들 살펴보기
+				// 3단계: 차례대로 알파벳을 보면서 등록 안된 문자 등록
 				if(!check) {
-					for(int i = 0; i < cArr.length; i++) {
-						if(cArr[i] != ' ' && count[cArr[i]] == false) {
+					for(int i = 0; i < s.length(); i++) {
+						if(s.charAt(i) != ' ' && !registeredChar.contains(Character.toLowerCase(s.charAt(i)))) {
 							check = true;
-							count[cArr[i]] = true;
-							
-							//출력
-							printWord(i, cArr2);
+							registeredChar.add(Character.toLowerCase(s.charAt(i)));
+							print(i, s);
 							break;
 						}
 					}
 				}
+	
 			}
 			
-			// 모든 글자가 다 등록되어있으면 그냥 출력
+			// 4단계: 어떠한 것도 단축키로 지정할 수 없다면 그냥 놔두기
 			if(!check) {
-				for(int i = 0; i < cArr2.length; i++) {
-					System.out.print(cArr2[i]);
+				for(int i = 0; i < s.length(); i++) {
+					System.out.print(s.charAt(i));
 				}
 				System.out.println();
 			}
+			
 		}
 	}
 	
-	static void printWord(int a, char[] cArr2) {
+	static void print(int a, String s) {
 		for(int i = 0; i < a; i++) {
-			System.out.print(cArr2[i]);
+			System.out.print(s.charAt(i));
 		}
 		System.out.print('[');
-		System.out.print(cArr2[a]);
+		System.out.print(s.charAt(a));
 		System.out.print(']');
-		for(int i = a+1; i < cArr2.length; i++) {
-			System.out.print(cArr2[i]);
+		for(int i = a+1; i < s.length(); i++) {
+			System.out.print(s.charAt(i));
 		}
 		System.out.println();
 	}
 }
+
+
