@@ -1,42 +1,33 @@
-
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 
 public class BJ_1436_영화감독숌 {
 	public static void main(String[] args) throws NumberFormatException, IOException {
+		// 종말의 숫자: 6이 3개 이상 들어간 수
+		// 666 1666 2666 ...
+		// N번째 종말의 숫자?
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int N = Integer.parseInt(br.readLine());
 		
-		int num = 666;
-		int cnt = 1;
-		while(N != cnt) {
+		int n = 0;
+		int num = 0;
+		while(true) {
 			num++;
 			String s = Integer.toString(num);
-			if(s.contains("666"))
-				cnt++;
+			int cnt = 0;
+			for(int c = 0; c < s.length()-2; c++) {
+				if(s.charAt(c) == '6' && s.charAt(c+1) == '6' && s.charAt(c+2) == '6') {
+					n++;
+					break;
+				}
+			}
+			
+			if(n == N)
+				break;
 		}
 		
 		System.out.println(num);
-//		if(N == 1)
-//			System.out.println(666);
-//		else {
-//			for(int a = 667; a < Integer.MAX_VALUE; a++) {
-//				String s = Integer.toString(a);
-//				char[] arr = s.toCharArray();
-//				for(int i = 0; i <= arr.length-3; i++) {
-//					if(arr[i] == '6' && arr[i+1] == '6' && arr[i+2] == '6') {
-//						cnt++;
-//						if(cnt == N)
-//							System.out.println(s);
-//					}
-//				}
-//				
-//			}
-//		}
-		
 	}
 }
-
