@@ -13,17 +13,15 @@ public class BJ_1874_스택수열 {
 		StringBuilder sb = new StringBuilder();
 		
 		int N = Integer.parseInt(br.readLine());
-
 		int[] arr = new int[N];
 		for(int n = 0; n < N; n++) {
 			arr[n] = Integer.parseInt(br.readLine());
 		}
-				
 		Stack<Integer> stack = new Stack<>();
-	
 		int idx = 0;
-		for(int i = 1; i <= N; i++) {
-			stack.push(i);
+		
+		for(int n = 1; n <= N; n++) {
+			stack.push(n);
 			sb.append("+").append("\n");
 			
 			while(!stack.isEmpty() && stack.peek() == arr[idx]) {
@@ -31,14 +29,11 @@ public class BJ_1874_스택수열 {
 				sb.append("-").append("\n");
 				idx++;
 			}
-			
 		}
 		
-		if(stack.isEmpty()) {
-			System.out.println(sb);
-		}
-		else
+		if(!stack.isEmpty())
 			System.out.println("NO");
-	
+		else
+			System.out.println(sb);
 	}
 }

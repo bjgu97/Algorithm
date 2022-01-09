@@ -9,47 +9,57 @@ import java.util.StringTokenizer;
 
 public class BJ_2891_카약과강풍 {
 	public static void main(String[] args) throws IOException {
+		// 자신 다음이나 전에 카약 빌려줌.
+		// 다른팀에게서 받은 카약은 다른팀에게 빌려줄 수 없음
+		// 카약 하나 더 가져온 팀의 카약 손상되었으면, 여분 카약으로 출전
+		// 이 카약 다른팀에게 빌려줄 수 없음
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		
-		int N = Integer.parseInt(st.nextToken());
+		int N =  Integer.parseInt(st.nextToken());
 		int S = Integer.parseInt(st.nextToken());
 		int R = Integer.parseInt(st.nextToken());
 		
+		int[] team = new int[N];
+		Arrays.fill(team, 1);
+		
 		st = new StringTokenizer(br.readLine());
-		boolean[] SArr = new boolean[N+2]; //
 		for(int s = 0; s < S; s++) {
-			SArr[Integer.parseInt(st.nextToken())] = true; //손상팀 true로
-		} 
-//		System.out.println(Arrays.toString(SArr));
+			int n = Integer.parseInt(st.nextToken());
+			team[n-1]--;
+		}
 		
 		st = new StringTokenizer(br.readLine());
-		boolean[] RArr = new boolean[N+2]; // 배열 넉넉히 잡아주고
 		for(int r = 0; r < R; r++) {
-			RArr[Integer.parseInt(st.nextToken())] = true; //여분팀 true로
-		} 
-//		System.out.println(Arrays.toString(RArr));
+			int n = Integer.parseInt(st.nextToken());
+			team[n-1]++;
+		}
 		
-		int answ = 0;
-		for(int n = 1; n <= N; n++) {
-			if(SArr[n]) { // 없는 팀에 대해서. 
-				if(RArr[n]) {
-					RArr[n] = false;
-					continue;
+//		System.out.println(Arrays.toString(team));
+		
+		for(int n = 0; n < N; n++) {
+			if(team[n] == 0) { // 고장났으면
+				if(n != 0 && team[n-1] == 2) {
+					team[n-1]--;
+					team[n]++;
 				}
-				
-				if(RArr[n-1]) { // 왼쪽에 카약 있으면
-					RArr[n-1] = false; // 대여
-					continue;
+				else if(n != N-1 && team[n+1] == 2) {
+					team[n+1]--;
+					team[n]++;
 				}
-				if(RArr[n+1]) { // 오른쪽에 카약 있으면
-					RArr[n+1] = false; // 대여
-					continue;
-				}
-				answ++; // 둘다 없으면 answ++
 			}
 		}
 		
-		System.out.println(answ);
+//		System.out.println(Arrays.toString(team));
+		
+		int answer = 0;
+		for(int n = 0; n < N; n++) {
+			if(team[n] == 0) {
+				answer++;
+			}
+		}
+		
+		System.out.println(answer);
 	}
 }

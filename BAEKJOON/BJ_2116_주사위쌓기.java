@@ -30,7 +30,7 @@ public class BJ_2116_주사위쌓기 {
 		// A(0) - F(5),
 		// B(1) - D(3)
 		// C(2) - E(4)
-		for(int num = 1; num <= 6; num++) { // 첫번쨰 주사위 먼저 결정
+		for(int num = 1; num <= 6; num++) { // 첫번쨰 주사위 먼저 쌓고
 			 sides = new boolean[N][6];
 			 
 			for(int i = 0; i < 6; i++) {
@@ -57,7 +57,6 @@ public class BJ_2116_주사위쌓기 {
 		}
 		
 		System.out.println(answer);
-
 	}
 
 	static int findSideSum(int N, boolean[][] sides, int[][] dices) {
